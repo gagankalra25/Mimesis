@@ -1,0 +1,39 @@
+entity1,relationship,entity2
+MCP (Multi-Cloud Platform),integrates with via custom nodes,n8n
+n8n,triggers on pull request events,GitHub Actions
+MCP,manages infrastructure as code,Terraform
+Zapier,provides pre-built connectors,MCP
+Agentic AI Bot,executes workflow steps autonomously,n8n
+MCP,hosts serverless functions,AWS Lambda
+n8n,reads and writes data,Google Sheets
+MCP,deploys containerized services,Docker Swarm
+n8n,sends real-time notifications,Slack
+Agentic Workflow Engine,scales horizontally across regions,MCP
+n8n,exposes custom endpoints,REST API
+MCP,orchestrates microservices,Kubernetes
+Agentic Chatbot,triggers workflows based on user intent,n8n
+n8n,manages database records,MongoDB Atlas
+MCP,integrates_with,n8n
+n8n,provides_node_for,Agentic Workflow node
+MCP,uses,OpenAI API
+MCP,exposes,REST API
+AutoGen,configures_via,MCP
+MCP,supports,OAuth2
+n8n,triggers,MCP
+MCP,includes,AI Governance Policy Engine
+MCP,logs_to,CloudWatch
+MCP,deploys_on,Kubernetes
+MCP,connects_with,Azure Cognitive Services
+n8n,schedules,MCP
+MCP,supports,Multi-tenant Architecture
+MCP,offers,Data Encryption
+n8n,connects_to,Lambda Function for Agentic Script
+n8n,competes as an open‑source workflow automation platform,Zapier
+Agentic AI Framework,extends workflow execution with autonomous decision making,n8n
+MCP,hosts pre‑built AI models for image and language processing,Azure Cognitive Services
+n8n,deploys workflows as containerized microservices,Docker Swarm
+Agentic Bot Builder,leverages cloud functions to execute agentic tasks,MCP
+n8n,provides alternative event triggers for code repositories,GitHub Actions
+MCP,manages container orchestration for agentic workloads,Azure Kubernetes Service (AKS)
+Agentic Learning Engine,feeds real‑time telemetry back to workflow automations,n8n
+n8n,shares connectors for Office 365 data sources,Microsoft Power Automate
