@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataForge - Generate Synthetic Data</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #fff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .action-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .action-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .action-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+
+        .action-card p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .panel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .panel h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-control, .form-select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-control:focus, .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-control::placeholder {
+            color: #9ca3af;
+        }
+
+        .textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .generate-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status-card {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .status-card.generating {
+            background: linear-gradient(45deg, #f59e0b, #d97706);
+        }
+
+        .status-card.error {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+        }
+
+        .status-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            background: white;
+            height: 100%;
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-fill.animated {
+            animation: fillProgress 3s ease-out forwards;
+        }
+
+        .status-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .download-btn {
+            background: white;
+            color: #059669;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .download-btn:hover {
+            background: #f0fdf4;
+            transform: translateY(-1px);
+        }
+
+        .preview-btn {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 0.75rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .preview-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .files-section {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .files-section.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .carousel-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            margin-bottom: 3rem;
+        }
+
+        .carousel-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .carousel-container h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .carousel-item {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .carousel-item:hover {
+            border-color: #667eea;
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        .carousel-item.active {
+            border-color: #667eea;
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        }
+        .mimesis-title {
+            font-size: 200rem;                   /* huge letters for impact */
+            font-weight: 900;
+            color: transparent;                 /* fill is transparent */
+            -webkit-text-stroke: 3px white;     /* base white outline */          /* fallback */
+            background: linear-gradient(45deg, #fff, #e0e7ff); /* gradient effect on text */
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            animation: fadeInUp 1.2s ease-out, pulseOutline 2s infinite alternate;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3); /* subtle glow */
+        }
+
+/* Outline pulse animation */
+@keyframes pulseOutline {
+    0% {
+        -webkit-text-stroke-color: rgba(255, 255, 255, 0.8);
+        text-shadow: 0 0 5px rgba(255,255,255,0.2);
+    }
+    50% {
+        -webkit-text-stroke-color: rgba(255, 255, 255, 1);
+        text-shadow: 0 0 20px rgba(255,255,255,0.5);
+    }
+    100% {
+        -webkit-text-stroke-color: rgba(255, 255, 255, 0.8);
+        text-shadow: 0 0 5px rgba(255,255,255,0.2);
+    }
+}
+
+/* Responsive scaling */
+@media (max-width: 1024px) {
+    .mimesis-title {
+        font-size: 109rem;
+        -webkit-text-stroke: 2.5px white;
+    }
+}
+
+@media (max-width: 768px) {
+    .mimesis-title {
+        font-size: 5rem;
+        -webkit-text-stroke: 2px white;
+    }
+}
+
+
+/* Responsive scaling */
+@media (max-width: 1024px) {
+    .mimesis-title {
+        font-size: 9rem;
+        -webkit-text-stroke: 2.5px white;
+    }
+}
+
+@media (max-width: 768px) {
+    .mimesis-title {
+        font-size: 5rem;
+        -webkit-text-stroke: 2px white;
+    }
+}
+
+
+        .carousel-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .carousel-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .carousel-desc {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1.5rem;
+            gap: 1rem;
+        }
+
+        .carousel-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .carousel-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #667eea;
+            transform: scale(1.2);
+        }
+
+        .contact-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .contact-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: #1f2937;
+            font-weight: 700;
+        }
+
+        .contact-section p {
+            font-size: 1.1rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .contact-form .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .contact-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            max-width: 200px;
+            margin: 0 auto;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fillProgress {
+            from {
+                width: 0%;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .carousel-slide {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .carousel-slide {
+                grid-template-columns: 1fr;
+            }
+            
+            .carousel-item {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="hero">
+            <h1 class="mimesis-title">MIMESIS</h1>
+            <h1>Generate Synthetic Data that Mirrors Reality</h1>
+            <p>Flexible. Scalable. Ready for your experiments.</p>
+            <button class="cta-button" onclick="scrollToGenerator()">Generate Data Now</button>
+        </div>
+
+        <div class="quick-actions">
+            <div class="action-card">
+                <div class="action-icon">📊</div>
+                <h3>Generate New Dataset</h3>
+                <p>Create custom synthetic data for your specific needs</p>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">📁</div>
+                <h3>View Previous Files</h3>
+                <p>Access and manage your generated datasets</p>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">🔧</div>
+                <h3>Explore API</h3>
+                <p>Integrate data generation into your workflow</p>
+            </div>
+        </div>
+
+        <!-- Supported Domains Section -->
+        <div class="section">
+            <div class="carousel-container">
+                <h2>Supported Domains</h2>
+                <div class="carousel" id="domainsCarousel">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <div class="carousel-item active">
+                                <div class="carousel-icon">🏥</div>
+                                <div class="carousel-title">Healthcare</div>
+                                <div class="carousel-desc">Medical records, patient data, clinical trials</div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-icon">💰</div>
+                                <div class="carousel-title">Finance</div>
+                                <div class="carousel-desc">Banking, transactions, market data</div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-icon">🛍️</div>
+                                <div class="carousel-title">Retail</div>
+                                <div class="carousel-desc">E-commerce, inventory, customer behavior</div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-icon">🎓</div>
+                                <div class="carousel-title">Education</div>
+                                <div class="carousel-desc">Student records, courses, assessments</div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="carousel-item">
+                                <div class="carousel-icon">🏭</div>
+                                <div class="carousel-title">Manufacturing</div>
+                                <div class="carousel-desc">Production data, quality control, supply chain</div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-icon">📱</div>
+                                <div class="carousel-title">Technology</div>
+                                <div class="carousel-desc">User analytics, app data, system logs</div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-icon">🏢</div>
+                                <div class="carousel-title">Real Estate</div>
+                                <div class="carousel-desc">Property listings, valuations, market trends</div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-icon">🚗</div>
+                                <div class="carousel-title">Automotive</div>
+                                <div class="carousel-desc">Vehicle data, maintenance, sales records</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-nav">
+                    <button class="carousel-btn" onclick="prevSlide('domains')" id="domainsPrev">‹</button>
+                    <div class="carousel-dots" id="domainsDots">
+                        <div class="carousel-dot active" onclick="currentSlide(1, 'domains')"></div>
+                        <div class="carousel-dot" onclick="currentSlide(2, 'domains')"></div>
+                    </div>
+                    <button class="carousel-btn" onclick="nextSlide('domains')" id="domainsNext">›</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Supported Data Formats Section -->
+        <div class="section">
+            <div class="carousel-container">
+                <h2>Supported Data Formats</h2>
+                <div class="carousel" id="formatsCarousel">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <div class="carousel-item active">
+                                <div class="carousel-icon">❓</div>
+                                <div class="carousel-title">Q&A Format</div>
+                                <div class="carousel-desc">Question-answer pairs for training</div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-icon">📊</div>
+                                <div class="carousel-title">CSV</div>
+                                <div class="carousel-desc">Comma-separated values for spreadsheets</div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-icon">🔗</div>
+                                <div class="carousel-title">JSON</div>
+                                <div class="carousel-desc">JavaScript Object Notation for APIs</div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-icon">📄</div>
+                                <div class="carousel-title">XML</div>
+                                <div class="carousel-desc">Extensible Markup Language</div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="carousel-item">
+                                <div class="carousel-icon">🗃️</div>
+                                <div class="carousel-title">SQL</div>
+                                <div class="carousel-desc">Database insert statements</div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-icon">📋</div>
+                                <div class="carousel-title">Excel</div>
+                                <div class="carousel-desc">Microsoft Excel spreadsheet format</div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-icon">🐍</div>
+                                <div class="carousel-title">Parquet</div>
+                                <div class="carousel-desc">Columnar storage for big data</div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-icon">📈</div>
+                                <div class="carousel-title">YAML</div>
+                                <div class="carousel-desc">Human-readable configuration format</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-nav">
+                    <button class="carousel-btn" onclick="prevSlide('formats')" id="formatsPrev">‹</button>
+                    <div class="carousel-dots" id="formatsDots">
+                        <div class="carousel-dot active" onclick="currentSlide(1, 'formats')"></div>
+                        <div class="carousel-dot" onclick="currentSlide(2, 'formats')"></div>
+                    </div>
+                    <button class="carousel-btn" onclick="nextSlide('formats')" id="formatsNext">›</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content" id="generator">
+            <div class="panel">
+                <h2>Generate Data</h2>
+                <form id="dataForm">
+                    <div class="form-group">
+                        <label>Domain</label>
+                        <select class="form-select" id="domain">
+                            <option value="healthcare">Healthcare</option>
+                            <option value="finance">Finance</option>
+                            <option value="retail">Retail</option>
+                            <option value="education">Education</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Format</label>
+                        <select class="form-select" id="format">
+                            <option value="qna">Q&A</option>
+                            <option value="csv">CSV</option>
+                            <option value="json">JSON</option>
+                            <option value="xml">XML</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Number of Records</label>
+                        <input type="number" class="form-control" value="100" min="1" max="10000" id="records">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Context</label>
+                        <textarea class="form-control textarea" placeholder="patient diagnosis procedures" id="context"></textarea>
+                    </div>
+                    <button type="submit" class="generate-btn">Generate</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h2>Files</h2>
+                <div class="files-section" id="filesSection">
+                    <input type="text" class="form-control" placeholder="Search files" style="margin-bottom: 1.5rem;">
+                    
+                    <div class="status-card" id="statusCard">
+                        <div class="status-title">Ready to generate data</div>
+                        <p style="margin: 0.5rem 0; opacity: 0.9;">Click "Generate" to create your synthetic dataset</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Us Section -->
+        <div class="contact-section">
+            <h2>Contact Us</h2>
+            <p>Ready to transform your data generation workflow? Get in touch with our team for custom solutions and enterprise support.</p>
+            
+            <form class="contact-form">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" placeholder="John">
+                </div>
+                
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" placeholder="Doe">
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" placeholder="john@company.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Company</label>
+                    <input type="text" class="form-control" placeholder="Your Company">
+                </div>
+                
+                <div class="form-group full-width">
+                    <label>Message</label>
+                    <textarea class="form-control textarea" placeholder="Tell us about your data generation needs..."></textarea>
+                </div>
+            </form>
+            
+            <button class="contact-btn">Send Message</button>
+        </div>
+    </div>
+<script>
+// Carousel functionality
+let currentSlideIndex = {
+    domains: 1,
+    formats: 1
+};
+
+function showSlide(n, carouselType) {
+    const carousel = document.getElementById(carouselType + 'Carousel');
+    const track = carousel.querySelector('.carousel-track');
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const dots = document.getElementById(carouselType + 'Dots').querySelectorAll('.carousel-dot');
+    const prevBtn = document.getElementById(carouselType + 'Prev');
+    const nextBtn = document.getElementById(carouselType + 'Next');
+
+    if (n > slides.length) currentSlideIndex[carouselType] = 1;
+    if (n < 1) currentSlideIndex[carouselType] = slides.length;
+
+    track.style.transform = `translateX(-${(currentSlideIndex[carouselType] - 1) * 100}%)`;
+
+    // Update dots
+    if (dots.length > 0) {
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[currentSlideIndex[carouselType] - 1]?.classList.add('active');
+    }
+
+    // Update button states
+    prevBtn.disabled = currentSlideIndex[carouselType] === 1;
+    nextBtn.disabled = currentSlideIndex[carouselType] === slides.length;
+}
+
+function nextSlide(carouselType) {
+    showSlide(currentSlideIndex[carouselType] += 1, carouselType);
+}
+
+function prevSlide(carouselType) {
+    showSlide(currentSlideIndex[carouselType] -= 1, carouselType);
+}
+
+function currentSlide(n, carouselType) {
+    showSlide(currentSlideIndex[carouselType] = n, carouselType);
+}
+
+// Create floating particles
+function createParticles() {
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 50;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.width = Math.random() * 4 + 2 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// Smooth scroll to generator
+function scrollToGenerator() {
+    document.getElementById('generator').scrollIntoView({
+        behavior: 'smooth'
+    });
+}
+
+// Generate data with API call - FIXED VERSION
+async function generateData(event) {
+    // Prevent any form submission or page refresh
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    
+    const btn = document.querySelector('.generate-btn');
+    const statusCard = document.getElementById('statusCard');
+    
+    // Get form values
+    const domain = document.getElementById('domain').value;
+    const format = document.getElementById('format').value;
+    const records = parseInt(document.getElementById('records').value);
+    const context = document.getElementById('context').value;
+    
+    // Update button state
+    btn.innerHTML = '<div class="spinner"></div>Generating...';
+    btn.disabled = true;
+    
+    // Update status card to show generating state
+    statusCard.className = 'status-card generating';
+    statusCard.innerHTML = `
+        <div class="status-title">Generating synthetic data...</div>
+        <div class="progress-bar">
+            <div class="progress-fill animated"></div>
+        </div>
+        <div style="opacity: 0.9; margin-top: 1rem;">
+            Processing ${records} records in ${format.toUpperCase()} format for ${domain} domain...
+        </div>
+    `;
+    
+    try {
+        // Make API call
+        const response = await fetch('http://localhost:8000/generate-synthetic-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                domain: domain,
+                data_format: format,
+                num_records: records,
+                context: context || `${domain} data generation`
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        // Show success result and keep it until user resets
+        statusCard.className = 'status-card';
+        statusCard.innerHTML = `
+            <div class="status-title">Generation completed successfully!</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%;"></div>
+            </div>
+            <div class="status-info">
+                <div class="info-item">
+                    <div class="info-value">${result.status}</div>
+                    <div class="info-label">Status</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-value">${result.total_records}</div>
+                    <div class="info-label">Total Records</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-value">${result.generation_time}</div>
+                    <div class="info-label">Generation Time</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-value">${format.toUpperCase()}</div>
+                    <div class="info-label">Format</div>
+                </div>
+            </div>
+            <button class="download-btn" onclick="downloadFile('${result.file_path}')">
+                📥 ${result.file_path}
+            </button>
+            <button class="preview-btn" onclick="previewFile('${result.file_path}')">Preview</button>
+            <button class="preview-btn" onclick="resetStatus()" style="margin-top: 1rem;">Generate Again</button>
+        `;
+        
+        // Keep Generate button disabled until user resets
+        btn.textContent = 'Generate';
+        btn.disabled = true;
+        
+        return false;
+        
+    } catch (error) {
+        console.error('Error generating data:', error);
+        
+        // Show error state and reset button
+        statusCard.className = 'status-card error';
+        statusCard.innerHTML = `
+            <div class="status-title">Generation failed</div>
+            <div style="opacity: 0.9; margin-top: 0.5rem;">
+                ${error.message.includes('fetch') ? 
+                    'Unable to connect to the API server. Please ensure the server is running on localhost:8000.' : 
+                    'An error occurred during data generation. Please try again.'}
+            </div>
+            <button class="preview-btn" onclick="resetStatus()" style="margin-top: 1rem;">Try Again</button>
+        `;
+        
+        // Reset button for error case
+        btn.textContent = 'Generate';
+        btn.disabled = false;
+    }
+    
+    return false;
+}
+
+// Download file function
+function downloadFile(filePath) {
+    // Create a temporary link to trigger download
+    const link = document.createElement('a');
+    link.href = `http://localhost:8000/download/${encodeURIComponent(filePath)}`;
+    link.download = filePath.split('/').pop();
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Preview file function
+function previewFile(filePath) {
+    // Open preview in new window/tab
+    window.open(`http://localhost:8000/preview/${encodeURIComponent(filePath)}`, '_blank');
+}
+
+// Reset status function (only called when user clicks "Try Again" or "Generate Again")
+function resetStatus() {
+    const statusCard = document.getElementById('statusCard');
+    statusCard.className = 'status-card';
+    statusCard.innerHTML = `
+        <div class="status-title">Ready to generate data</div>
+        <p style="margin: 0.5rem 0; opacity: 0.9;">Click "Generate" to create your synthetic dataset</p>
+    `;
+    
+    const btn = document.querySelector('.generate-btn');
+    btn.textContent = 'Generate';
+    btn.disabled = false;
+}
+
+// Prevent form submission
+// Handle form submission
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('dataForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            generateData(e); // ✅ call your function here
+            return false;
+        });
+    }
+
+    
+    // Carousel item selection
+    document.querySelectorAll('.carousel-item').forEach(item => {
+        item.addEventListener('click', () => {
+            // Remove active class from siblings
+            item.parentElement.querySelectorAll('.carousel-item').forEach(sibling => {
+                sibling.classList.remove('active');
+            });
+            // Add active class to clicked item
+            item.classList.add('active');
+        });
+    });
+});
+
+// Initialize carousels and particles when page loads
+window.addEventListener('load', () => {
+    createParticles();
+    showSlide(1, 'domains');
+    showSlide(1, 'formats');
+});
+
+    
+</script>

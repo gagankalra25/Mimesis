@@ -9,6 +9,5 @@ requests
 beautifulsoup4
 pandas
 python-dotenv
-python-multiparts
-aiofiles
+langchain_groq
 httpx

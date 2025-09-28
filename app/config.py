@@ -66,7 +66,7 @@ SUPPORTED_FORMATS = {
 
 # LLM Configuration
 GROQ_MODELS = {
-    "default": "openai/gpt-oss-20b",
+    "default": "meta-llama/llama-4-maverick-17b-128e-instruct",
     "fast": "llama-3.1-8b-instant",
     "advanced": "mixtral-8x7b-32768"
 }
