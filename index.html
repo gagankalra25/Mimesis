@@ -20,18 +20,27 @@
         }
 
         .container {
+            justify-content: center;
             max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
         }
+        .container h1{
+            justify-content: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0rem;
+        }
 
         .hero {
+            justify-content: center ;
             text-align: center;
             margin-bottom: 3rem;
             padding: 2rem 0;
         }
 
         .hero h1 {
+            justify-content: center;
             font-size: 3.5rem;
             font-weight: 800;
             background: linear-gradient(45deg, #fff, #e0e7ff);
@@ -385,66 +394,52 @@
             border-color: #667eea;
             background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
         }
+
         .mimesis-title {
-            font-size: 200rem;                   /* huge letters for impact */
-            font-weight: 900;
-            color: transparent;                 /* fill is transparent */
-            -webkit-text-stroke: 3px white;     /* base white outline */          /* fallback */
-            background: linear-gradient(45deg, #fff, #e0e7ff); /* gradient effect on text */
-            -webkit-text-fill-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            margin-bottom: 2rem;
-            line-height: 1.1;
+
+            width: 100vw;
+            height: 60vh;
+
+            font-weight: 900;
+            font-size: clamp(4rem, 10vw, 10rem); /* responsive scaling */
+            white-space: nowrap;    /* prevent line breaks */
+            color: transparent;     /* hollow text */
+            -webkit-text-stroke: 3px white; /* outline only */
+            text-stroke: 3px white;        /* fallback */
+            line-height: 1;
+            /* Smooth glow and outline pulse */
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 0.3),
+                0 0 20px rgba(255, 255, 255, 0.2),
+                0 0 30px rgba(255, 255, 255, 0.1);
+
             animation: fadeInUp 1.2s ease-out, pulseOutline 2s infinite alternate;
-            text-shadow: 0 0 10px rgba(255,255,255,0.3); /* subtle glow */
+
+            overflow: hidden;
         }
 
-/* Outline pulse animation */
+/* Pulse outline animation */
 @keyframes pulseOutline {
     0% {
         -webkit-text-stroke-color: rgba(255, 255, 255, 0.8);
-        text-shadow: 0 0 5px rgba(255,255,255,0.2);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
     50% {
         -webkit-text-stroke-color: rgba(255, 255, 255, 1);
-        text-shadow: 0 0 20px rgba(255,255,255,0.5);
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
+                     0 0 30px rgba(255, 255, 255, 0.4);
     }
     100% {
         -webkit-text-stroke-color: rgba(255, 255, 255, 0.8);
-        text-shadow: 0 0 5px rgba(255,255,255,0.2);
-    }
-}
-
-/* Responsive scaling */
-@media (max-width: 1024px) {
-    .mimesis-title {
-        font-size: 109rem;
-        -webkit-text-stroke: 2.5px white;
-    }
-}
-
-@media (max-width: 768px) {
-    .mimesis-title {
-        font-size: 5rem;
-        -webkit-text-stroke: 2px white;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
 }
 
 
-/* Responsive scaling */
-@media (max-width: 1024px) {
-    .mimesis-title {
-        font-size: 9rem;
-        -webkit-text-stroke: 2.5px white;
-    }
-}
-
-@media (max-width: 768px) {
-    .mimesis-title {
-        font-size: 5rem;
-        -webkit-text-stroke: 2px white;
-    }
-}
 
 
         .carousel-icon {
@@ -701,8 +696,9 @@
     <div class="floating-particles" id="particles"></div>
     
     <div class="container">
+        <h1 class="mimesis-title">MIMESIS</h1>
         <div class="hero">
-            <h1 class="mimesis-title">MIMESIS</h1>
+            
             <h1>Generate Synthetic Data that Mirrors Reality</h1>
             <p>Flexible. Scalable. Ready for your experiments.</p>
             <button class="cta-button" onclick="scrollToGenerator()">Generate Data Now</button>

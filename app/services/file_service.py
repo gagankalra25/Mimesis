@@ -5,7 +5,7 @@ import logging
 from datetime import datetime
 from typing import List, Dict, Any
 import pandas as pd
-from config import RESPONSES_DIR, SUPPORTED_FORMATS
+from app.config import RESPONSES_DIR, SUPPORTED_FORMATS
 
 logger = logging.getLogger(__name__)
 

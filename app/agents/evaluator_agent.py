@@ -1,8 +1,8 @@
 import logging
 from typing import Dict, Any, List, Set
-from models.schemas import GenerationState, EvaluationResult
-from services.llm_service import LLMService
-from services.file_service import FileService
+from app.models.schemas import GenerationState, EvaluationResult
+from app.services.llm_service import LLMService
+from app.services.file_service import FileService
 
 logger = logging.getLogger(__name__)
 

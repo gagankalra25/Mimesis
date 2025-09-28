@@ -6,10 +6,10 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from models.schemas import SyntheticDataRequest, SyntheticDataResponse, StatusEnum
-from agents.langgraph_workflow import SyntheticDataWorkflow
-from utils.helpers import validate_request_data, format_duration, timing_decorator
-from config import ENVIRONMENT
+from app.models.schemas import SyntheticDataRequest, SyntheticDataResponse, StatusEnum
+from app.agents.langgraph_workflow import SyntheticDataWorkflow
+from app.utils.helpers import validate_request_data, format_duration, timing_decorator
+from app.config import ENVIRONMENT
 
 # Configure logging
 logging.basicConfig(

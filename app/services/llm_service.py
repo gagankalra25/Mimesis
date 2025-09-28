@@ -4,7 +4,7 @@ from typing import Dict, Any, List, Optional
 from langchain_groq import ChatGroq
 from langchain_core.messages import HumanMessage, SystemMessage
 from pydantic import BaseModel, Field
-from config import GROQ_API_KEY, GROQ_MODELS, MAX_RETRIES
+from app.config import GROQ_API_KEY, GROQ_MODELS, MAX_RETRIES
 
 logger = logging.getLogger(__name__)
 

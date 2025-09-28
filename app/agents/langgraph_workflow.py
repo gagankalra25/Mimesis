@@ -1,10 +1,10 @@
 import logging
 from typing import Dict, Any
 from langgraph.graph import StateGraph, END
-from models.schemas import GenerationState
-from agents.research_agent import ResearchAgent
-from agents.generator_agent import GeneratorAgent
-from agents.evaluator_agent import EvaluatorAgent
+from app.models.schemas import GenerationState
+from app.agents.research_agent import ResearchAgent
+from app.agents.generator_agent import GeneratorAgent
+from app.agents.evaluator_agent import EvaluatorAgent
 
 logger = logging.getLogger(__name__)
 

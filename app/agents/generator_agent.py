@@ -2,9 +2,9 @@ import json
 import logging
 import math
 from typing import Dict, Any, List
-from models.schemas import GenerationState, GenerationBatch, ResearchResult
-from services.llm_service import LLMService
-from config import BATCH_SIZE
+from app.models.schemas import GenerationState, GenerationBatch, ResearchResult
+from app.services.llm_service import LLMService
+from app.config import BATCH_SIZE
 
 logger = logging.getLogger(__name__)
 

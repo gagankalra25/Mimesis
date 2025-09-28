@@ -1,9 +1,9 @@
 import logging
 from typing import Dict, Any
-from models.schemas import GenerationState, ResearchResult
-from services.llm_service import LLMService
-from services.scraper_service import ScraperService
-from models.domains import DomainConfig
+from app.models.schemas import GenerationState, ResearchResult
+from app.services.llm_service import LLMService
+from app.services.scraper_service import ScraperService
+from app.models.domains import DomainConfig
 
 logger = logging.getLogger(__name__)
 

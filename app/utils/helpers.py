@@ -56,12 +56,12 @@ def validate_request_data(domain: str, data_format: str, num_records: int) -> Di
     errors = {}
     
     # Validate domain
-    from config import SUPPORTED_DOMAINS
+    from app.config import SUPPORTED_DOMAINS
     if domain not in SUPPORTED_DOMAINS:
         errors['domain'] = f"Unsupported domain. Supported: {list(SUPPORTED_DOMAINS.keys())}"
     
     # Validate data format
-    from config import SUPPORTED_FORMATS
+    from app.config import SUPPORTED_FORMATS
     if data_format not in SUPPORTED_FORMATS:
         errors['data_format'] = f"Unsupported format. Supported: {list(SUPPORTED_FORMATS.keys())}"
     

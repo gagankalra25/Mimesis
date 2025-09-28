@@ -3,7 +3,7 @@ import asyncio
 from typing import List, Dict, Any
 import httpx
 from bs4 import BeautifulSoup
-from config import SUPPORTED_DOMAINS
+from app.config import SUPPORTED_DOMAINS
 
 logger = logging.getLogger(__name__)
 
