@@ -75,7 +75,7 @@ async def health_check():
 @app.get("/supported-domains")
 async def get_supported_domains():
     """Get list of supported domains"""
-    from config import SUPPORTED_DOMAINS
+    from app.config import SUPPORTED_DOMAINS
     return {
         "domains": list(SUPPORTED_DOMAINS.keys()),
         "details": SUPPORTED_DOMAINS
@@ -84,7 +84,7 @@ async def get_supported_domains():
 @app.get("/supported-formats")
 async def get_supported_formats():
     """Get list of supported data formats"""
-    from config import SUPPORTED_FORMATS
+    from app.config import SUPPORTED_FORMATS
     return {
         "formats": list(SUPPORTED_FORMATS.keys()),
         "details": SUPPORTED_FORMATS
@@ -197,7 +197,7 @@ async def generate_synthetic_data(request: SyntheticDataRequest):
 @app.get("/files/{file_path:path}")
 async def get_file_info(file_path: str):
     """Get information about a generated file"""
-    from services.file_service import FileService
+    from app.services.file_service import FileService
     
     file_service = FileService()
     file_stats = file_service.get_file_stats(file_path)
@@ -214,7 +214,7 @@ async def get_file_info(file_path: str):
 @app.get("/file-sample")
 async def get_file_sample_simple(file_path: str, num_rows: int = 5):
     """Get a sample of records from a generated file using query parameter"""
-    from services.file_service import FileService
+    from app.services.file_service import FileService
     
     # Ensure the file path is relative to responses directory
     if not file_path.startswith('responses/'):
@@ -258,7 +258,7 @@ async def get_file_sample_simple(file_path: str, num_rows: int = 5):
 @app.delete("/cleanup")
 async def cleanup_old_files(days_old: int = 7):
     """Clean up files older than specified days"""
-    from services.file_service import FileService
+    from app.services.file_service import FileService
     
     if days_old < 1:
         raise HTTPException(
