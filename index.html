@@ -741,7 +741,7 @@
                             </div>
                             <div class="carousel-item">
                                 <div class="carousel-icon">🛍️</div>
-                                <div class="carousel-title">Retail</div>
+                                <div class="carousel-title">Bussiness</div>
                                 <div class="carousel-desc">E-commerce, inventory, customer behavior</div>
                             </div>
                             <div class="carousel-item">
@@ -752,24 +752,9 @@
                         </div>
                         <div class="carousel-slide">
                             <div class="carousel-item">
-                                <div class="carousel-icon">🏭</div>
-                                <div class="carousel-title">Manufacturing</div>
-                                <div class="carousel-desc">Production data, quality control, supply chain</div>
-                            </div>
-                            <div class="carousel-item">
                                 <div class="carousel-icon">📱</div>
                                 <div class="carousel-title">Technology</div>
                                 <div class="carousel-desc">User analytics, app data, system logs</div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="carousel-icon">🏢</div>
-                                <div class="carousel-title">Real Estate</div>
-                                <div class="carousel-desc">Property listings, valuations, market trends</div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="carousel-icon">🚗</div>
-                                <div class="carousel-title">Automotive</div>
-                                <div class="carousel-desc">Vehicle data, maintenance, sales records</div>
                             </div>
                         </div>
                     </div>
@@ -795,45 +780,24 @@
                             <div class="carousel-item active">
                                 <div class="carousel-icon">❓</div>
                                 <div class="carousel-title">Q&A Format</div>
-                                <div class="carousel-desc">Question-answer pairs for training</div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="carousel-icon">📊</div>
-                                <div class="carousel-title">CSV</div>
-                                <div class="carousel-desc">Comma-separated values for spreadsheets</div>
+                                <div class="carousel-desc">"Question and Answer pairs with context" :["Question", "Answer", "Context" ]</div>
                             </div>
                             <div class="carousel-item">
                                 <div class="carousel-icon">🔗</div>
-                                <div class="carousel-title">JSON</div>
-                                <div class="carousel-desc">JavaScript Object Notation for APIs</div>
+                                <div class="carousel-title">Entity and Relationships</div>
+                                <div class="carousel-desc">"Entity relationship mappings" :["Entity1", "Relationships", "Entity2"]</div>
                             </div>
                             <div class="carousel-item">
                                 <div class="carousel-icon">📄</div>
-                                <div class="carousel-title">XML</div>
-                                <div class="carousel-desc">Extensible Markup Language</div>
-                            </div>
-                        </div>
-                        <div class="carousel-slide">
-                            <div class="carousel-item">
-                                <div class="carousel-icon">🗃️</div>
-                                <div class="carousel-title">SQL</div>
-                                <div class="carousel-desc">Database insert statements</div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="carousel-icon">📋</div>
-                                <div class="carousel-title">Excel</div>
-                                <div class="carousel-desc">Microsoft Excel spreadsheet format</div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="carousel-icon">🐍</div>
-                                <div class="carousel-title">Parquet</div>
-                                <div class="carousel-desc">Columnar storage for big data</div>
+                                <div class="carousel-title">RAG Chunks</div>
+                                <div class="carousel-desc">"RAG-optimized content chunks with metadata" :["Context", "Metadata", "Summary"]</div>
                             </div>
                             <div class="carousel-item">
                                 <div class="carousel-icon">📈</div>
-                                <div class="carousel-title">YAML</div>
-                                <div class="carousel-desc">Human-readable configuration format</div>
+                                <div class="carousel-title">Fine Tuning</div>
+                                <div class="carousel-desc">"Instruction-input-output format for model training" :["Instruction", "Input", "Output"]</div>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -857,7 +821,9 @@
                         <select class="form-select" id="domain">
                             <option value="healthcare">Healthcare</option>
                             <option value="finance">Finance</option>
-                            <option value="retail">Retail</option>
+                            <option value="bussiness">Bussiness</option>
+                            <option value="law">Law</option>
+                            <option value="technology">Technology</option>
                             <option value="education">Education</option>
                         </select>
                     </div>
@@ -866,9 +832,9 @@
                         <label>Format</label>
                         <select class="form-select" id="format">
                             <option value="qna">Q&A</option>
-                            <option value="csv">CSV</option>
-                            <option value="json">JSON</option>
-                            <option value="xml">XML</option>
+                            <option value="entity_relationships">Entity Relationships</option>
+                            <option value="rag_chunks">RAG Chunks</option>
+                            <option value="fine_tuning">Fine Tuning</option>
                         </select>
                     </div>
                     
